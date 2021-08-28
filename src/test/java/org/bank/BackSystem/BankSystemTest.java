@@ -22,7 +22,7 @@ public class BankSystemTest {
 		BankSystem bankSystem = new BankSystem();
 		bankSystem.register(1);
 		bankSystem.credit(1, 1000);
-		assertTrue(bankSystem.getAccount(1).getBalance() == 100099);
+		assertTrue(bankSystem.getAccount(1).getBalance() == 10009);
 	}
 	
 	@Test
