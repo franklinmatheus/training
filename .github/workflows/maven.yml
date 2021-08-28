@@ -28,6 +28,8 @@ jobs:
   undo:
     if: ${{ always() && (needs.build.result=='failure') }}
 
+    needs: build
+
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
