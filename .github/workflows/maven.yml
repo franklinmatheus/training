@@ -18,26 +18,11 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
+    - name: Resolve Dependencies
+      run: mvn dependency:analyze
+    - name: Analyze Dependencies
+      run: mvn dependency:analyze
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Dependencies
-      run: mvn dependency:analyze
     - name: Tests
       run: mvn test
-  
-  undo:
-    if: ${{ always() && (needs.build.result=='failure') }}
-
-    needs: build
-
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-           ref: ${{ github.event.inputs.branch }}
-           fetch-depth: 0 
-      - name: Undo Push
-        uses: exions/undo-push@v1
-        with:
-          branch: ${{ github.event.inputs.branch }}
