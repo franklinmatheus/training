@@ -4,6 +4,7 @@ on:
   release:
     types:
       - created
+
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
 
 jobs:
@@ -24,3 +25,9 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Tests
       run: mvn test
+    - name: Create release
+      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
+    - name: Create tag
+      uses: anothrNick/github-tag-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
