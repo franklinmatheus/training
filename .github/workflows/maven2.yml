@@ -2,8 +2,7 @@ name: New candidate version
 
 on:
   release:
-    types:
-      - created
+    types: [created,published]
 
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
 
@@ -31,3 +30,8 @@ jobs:
       uses: anothrNick/github-tag-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: build
+    name: Version
+    run: echo ${{ github.event.release.tag_name }}
