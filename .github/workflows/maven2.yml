@@ -33,12 +33,12 @@ jobs:
     steps:
     - name: Release Branch Name
       id: vars
-      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*}
+      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/release/*}
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & push Docker image
       with:
         image: franklinmatheus/training	
-        tags: ${{ steps.vars.outputs.short_ref }}
+        tags: v${{ steps.vars.outputs.short_ref }}
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
