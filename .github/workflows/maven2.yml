@@ -37,7 +37,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         image: franklinmatheus/training
         registry: docker.io
-        tags: latest, release
+        tags: latest-release
     
     #steps:
     #- uses: actions/checkout@v2    
