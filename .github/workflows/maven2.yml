@@ -5,8 +5,6 @@ on:
     branches:
       - 'release/**'
 
-# change
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,12 +32,18 @@ jobs:
     - name: Release Branch Name
       id: vars
       run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
+    - uses: actions/checkout@v2
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.6
       with:
-        image: franklinmatheus/training	
-        tags: ${{ steps.vars.outputs.short_ref }}
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-      
+        github_token: ${{ secrets.ACCESS_TOKEN }}
+        release_branches: release/*
+    - name: Create a GitHub release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
