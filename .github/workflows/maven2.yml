@@ -38,6 +38,7 @@ jobs:
       with:
         image: franklinmatheus/training
         registry: docker.io
+        labels: ${{ steps.vars.outputs.short_ref }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}    
     
