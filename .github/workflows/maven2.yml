@@ -28,15 +28,15 @@ jobs:
     - name: Tests
       run: mvn test
 
-  sonarqube:
+  checkstyle:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: SonarCube analysis
-      run: mvn clean verify sonar:sonar -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.projectKey=${SONAR_TOKEN}
+    - name: Code Analysis with Checkstyle
+      run: mvn clean checkstyle:check
 
   publish:
-    needs: sonarqube    
+    needs: checkstyle    
     runs-on: ubuntu-latest
     
     steps:
