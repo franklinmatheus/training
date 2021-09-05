@@ -5,6 +5,8 @@ on:
     branches:
       - 'release/**'
 
+# change
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,11 +31,20 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Release Branch Name
+      id: vars
+      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
     - uses: actions/checkout@v2
-    - name: Create release
-      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
-    - name: Create tag
-      uses: anothrNick/github-tag-action@master
+    - name: Bump version and push tag
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.6
+      with:
+        github_token: ${{ secrets.ACCESS_TOKEN }}
+        release_branches: release/*
+    - name: Create a GitHub release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        RELEASE_BRANCHES: release/*
+      with:
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        release_name: Release ${{ steps.vars.outputs.name }}
