@@ -33,7 +33,7 @@ jobs:
     steps:
     - name: Release Branch Name
       id: vars
-      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*}
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & push Docker image
       with:
