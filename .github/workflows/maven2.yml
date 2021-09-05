@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - 'release/**'
+  pull_request:
+    branches:
+      - 'release/**'
 
 jobs:
   build:
@@ -20,13 +23,13 @@ jobs:
         java-version: 11
     
     - name: Resolve Dependencies
-      run: mvn dependency:analyze
+      run: mvn install
     
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
     - name: Code Analysis with Checkstyle
-      run: mvn clean checkstyle:check
+      run: mvn checkstyle:check
 
     - name: Tests
       run: mvn test
@@ -45,36 +48,3 @@ jobs:
         image: franklinmatheus/training
         registry: docker.io
         tags: latest-release
-    
-    #steps:
-    #- uses: actions/checkout@v2    
-    #- name: Release Branch Name
-    #  id: vars
-    #  run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-
-    #- uses: mukunku/tag-exists-action@v1.0.0
-    #  id: tagExists
-    #  with: 
-    #    tag: ${{ steps.vars.outputs.short_ref }}
-    #  env:
-    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    #- name: Bump version and push tag
-    #  if: ${{ steps.tagExists.outputs.exists }} == 'False'
-    #  id: tag_version
-    #  uses: mathieudutour/github-tag-action@v5.6
-    #  with:
-    #    github_token: ${{ secrets.ACCESS_TOKEN }}
-    #    release_branches: release/*
-
-    #- name: Create a GitHub release
-    #  if: ${{ steps.tagExists.outputs.exists }} == 'False'
-    #  uses: actions/create-release@v1
-    #  env:
-    #    GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    #  with:
-    #    tag_name: ${{ steps.tag_version.outputs.new_tag }}
-    #    release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-    #    body: ${{ steps.tag_version.outputs.changelog }}
-
-    
