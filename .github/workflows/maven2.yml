@@ -41,6 +41,7 @@ jobs:
         image: franklinmatheus/training
         registry: docker.io
         tags: latest
+        labels: ${{ steps.vars.outputs.short_ref }}
     
     #steps:
     #- uses: actions/checkout@v2    
