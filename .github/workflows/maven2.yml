@@ -1,5 +1,4 @@
 name: New candidate version
-
 on:
   push:
     branches:
