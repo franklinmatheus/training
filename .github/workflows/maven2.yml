@@ -36,11 +36,11 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & push Docker image
       with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
         image: franklinmatheus/training
         registry: docker.io
-        labels: ${{ steps.vars.outputs.short_ref }}
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}    
+        tags: ${{ steps.vars.outputs.short_ref }}, latest
     
     #steps:
     #- uses: actions/checkout@v2    
