@@ -1,10 +1,9 @@
 name: New candidate version
 
 on:
-  release:
-    types: [created,published]
-
-# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on
+  push:
+    branches:
+      - 'release/**'
 
 jobs:
   build:
@@ -20,10 +19,10 @@ jobs:
         cache: maven
     - name: Resolve Dependencies
       run: mvn dependency:analyze
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Tests
-      run: mvn test
+    #- name: Build with Maven
+    #  run: mvn -B package --file pom.xml
+    #- name: Tests
+    #  run: mvn test
     - name: Create release
       run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
     - name: Create tag
