@@ -40,7 +40,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         image: franklinmatheus/training
         registry: docker.io
-        tags: ${{ steps.vars.outputs.short_ref }}, latest
+        tags: latest
     
     #steps:
     #- uses: actions/checkout@v2    
