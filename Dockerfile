@@ -1,0 +1,1 @@
+ADD ./* /usr/app/
