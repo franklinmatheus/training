@@ -1,3 +1,3 @@
-FROM franklinmatheus/training
+FROM training
 
 ADD ./* /usr/app/
