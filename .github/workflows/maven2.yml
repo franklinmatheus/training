@@ -23,17 +23,19 @@ jobs:
     #  run: mvn -B package --file pom.xml
     #- name: Tests
     #  run: mvn test
-    - name: Create release
-      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
-    - name: Create tag
-      uses: anothrNick/github-tag-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     needs: build    
     runs-on: ubuntu-latest
     
     steps:
-    - name: Version
-      run: echo ${{ github.event.release.tag_name }}
+    - name: Set output
+        id: vars
+        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+    - uses: actions/checkout@v2
+    - name: Create release
+      run: rsync -arv --exclude='.git/' --exclude='.github/' --exclude='.gitignore' . ./release
+    - name: Create tag
+      uses: anothrNick/github-tag-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
