@@ -25,18 +25,14 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
-    - name: Tests
-      run: mvn test
-
-  checkstyle:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
     - name: Code Analysis with Checkstyle
       run: mvn clean checkstyle:check
 
+    - name: Tests
+      run: mvn test
+
   publish:
-    needs: checkstyle    
+    needs: build    
     runs-on: ubuntu-latest
     
     steps:
