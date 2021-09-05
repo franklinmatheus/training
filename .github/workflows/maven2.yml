@@ -42,7 +42,7 @@ jobs:
         github_token: ${{ secrets.ACCESS_TOKEN }}
         release_branches: release/*
         custom_tag: ${{ steps.vars.outputs.short_ref }}
-        tag_prefix: :
+        tag_prefix: ':'
     - name: Create a GitHub release
       uses: actions/create-release@v1
       env:
