@@ -28,11 +28,11 @@ jobs:
     needs: build    
     runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v2    
-    - name: Release Branch Name
-      id: vars
-      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+    #steps:
+    #- uses: actions/checkout@v2    
+    #- name: Release Branch Name
+    #  id: vars
+    #  run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
 
     #- uses: mukunku/tag-exists-action@v1.0.0
     #  id: tagExists
