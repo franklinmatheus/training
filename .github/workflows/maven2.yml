@@ -59,7 +59,6 @@ jobs:
         release_name: Release ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
 
-
     #- name: Release Branch Name
     #  id: vars
     #  run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
