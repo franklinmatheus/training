@@ -28,6 +28,7 @@ jobs:
     needs: build    
     runs-on: ubuntu-latest
     
+    steps:
     - name: Release Branch Name
       id: vars
       run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
