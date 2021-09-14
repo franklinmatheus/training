@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Specify the directory for the hooks.
+# We'll use the current one (.githooks)
+hookDir=$(dirname $0)
+
+# Specify the hooks you want to run during
+# the pre-commit process:
+"$hookDir/check-msg.py"
