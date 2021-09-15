@@ -4,7 +4,7 @@ import sys, os, re
 from subprocess import check_output
 
 branch = check_output(['git', 'symbolic-ref', '--short', 'HEAD']).strip()
-print("commit-msg: On branch" + str(branch))
+print(branch)
 
 url = "https://api.github.com/repos/franklinmatheus/training/issues"
 
