@@ -19,4 +19,3 @@ with open(commit_msg_filepath, 'r') as f:
 
 print("OK")
 
-
